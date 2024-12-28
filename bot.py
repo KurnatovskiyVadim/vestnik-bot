@@ -106,9 +106,6 @@ if __name__ == "__main__":
     # Инициализация базы данных
     init_db()
 
-    # Токен бота
-    TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
-
     # Создание приложения
     application = ApplicationBuilder().token(TOKEN).build()
 
