@@ -106,7 +106,7 @@ def save_message(username, message_text, file_path=None):
 def sample_response():
   return random.choice(RESPONSES)
 
-async def set_commands(application: Application):
+async def set_commands(application: ApplicationBuilder):
     await application.bot.set_my_commands([
         BotCommand("start","Начало"),
         BotCommand("welcome","Руководство")
