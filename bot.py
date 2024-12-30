@@ -2,7 +2,7 @@ import os
 import logging
 import random
 import psycopg2
-from telegram import Update, InputFile, InlineKeyboardButton, InlineKeyboardMarkup, Application
+from telegram import Update, InputFile, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.bot import BotCommand
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, CallbackQueryHandler, filters, ContextTypes
 
