@@ -130,11 +130,11 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     message_text = update.message.text
 
-    # Сохранение сообщения в базу данных
-    save_message(user.username, message_text)
-
     # Ответ на сообщение
     await update.message.reply_text(sample_response())
+
+    # Сохранение сообщения в базу данных
+    save_message(user.username, message_text)
 
 # Обработчик медиафайлов
 async def handle_file(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -144,10 +144,10 @@ async def handle_file(update: Update, context: ContextTypes.DEFAULT_TYPE):
     caption = update.message.caption if update.message.caption else None
     file_path = "https://api.telegram.org/bot".join(TOKEN, "/getFile?file_id=", file.file_id)
 
+    await update.message.reply_text(sample_response())
+
     # Сохранение данных в базу
     save_message(user.id, user.username, caption, file_path)
-
-    await update.message.reply_text(sample_response())
 
 # Обработчик нажатий кнопок
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
