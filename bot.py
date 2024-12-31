@@ -108,12 +108,12 @@ def sample_response():
 
 async def set_commands(application: ApplicationBuilder):
     await application.bot.set_my_commands([
-        BotCommand("start","Начало"),
-        BotCommand("welcome","Руководство")
+        BotCommand("start","Добро пожаловать"),
+        BotCommand("rules","Руководство")
       ])
 
 # Обработчик команды /start
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     keyboard = [
         [InlineKeyboardButton("Руководство", callback_data="rules")]
@@ -121,8 +121,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(f"Привет, {user.first_name}!", reply_markup=reply_markup)
 
-# Обработчик команды /welcome
-async def welcome_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+# Обработчик команды /rules
+async def rules_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(INSTRUCTION_TEXT)
 
 # Обработчик текстовых сообщений
@@ -154,7 +154,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "welcome":
+    if query.data == "start":
         await query.edit_message_text(INSTRUCTION_TEXT)
 
 # Основной запуск бота
@@ -165,8 +165,8 @@ if __name__ == "__main__":
     application = ApplicationBuilder().token(TOKEN).build()
 
     # Обработчики
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("welcome", welcome_command))
+    application.add_handler(CommandHandler("start", start_command))
+    application.add_handler(CommandHandler("rules", rules_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(MessageHandler(filters.Document.ALL | filters.PHOTO | filters.VIDEO, handle_file))
     application.add_handler(CallbackQueryHandler(button_handler))
