@@ -154,7 +154,7 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "start":
+    if query.data == "rules":
         await query.edit_message_text(INSTRUCTION_TEXT)
 
 # Основной запуск бота
