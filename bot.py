@@ -62,7 +62,7 @@ RESPONSES = [
     "Никто не знает, кто это написал... Но это звучит интересно!",
     "Записано. Хранится под семью замками до первого утреннего обсуждения.",
     "Ваша сплетня добавлена в тайный архив лагерных слухов.",
-    "Ты в деле! А теперь слушай, что принесут другие.",
+    "Ты в деле! Вы официально стали частью лагерной легенды!",
     "Информация обработана, агенты на месте!",
     "Сплетня записана! Теперь лагерь оживет новыми обсуждениями.",
     "Слух пошел гулять по тенистым уголкам лагеря!",
@@ -116,13 +116,13 @@ async def set_commands(application: ApplicationBuilder):
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     keyboard = [
-        [InlineKeyboardButton("Руководство", callback_data="instruction")]
+        [InlineKeyboardButton("Руководство", callback_data="rules")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(f"Привет, {user.first_name}!", reply_markup=reply_markup)
 
-# Обработчик команды /instruction
-async def instruction_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+# Обработчик команды /welcome
+async def welcome_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(INSTRUCTION_TEXT)
 
 # Обработчик текстовых сообщений
@@ -154,22 +154,19 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "instruction":
+    if query.data == "welcome":
         await query.edit_message_text(INSTRUCTION_TEXT)
 
 # Основной запуск бота
 if __name__ == "__main__":
-    # Инициализация базы данных
     init_db()
 
     # Создание приложения
     application = ApplicationBuilder().token(TOKEN).build()
 
-    application.job_queue.run_once(lambda _: set_commands(application), 0)
-
     # Обработчики
     application.add_handler(CommandHandler("start", start))
-    application.add_handler(CommandHandler("instruction", instruction_command))
+    application.add_handler(CommandHandler("welcome", welcome_command))
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(MessageHandler(filters.Document.ALL | filters.PHOTO | filters.VIDEO, handle_file))
     application.add_handler(CallbackQueryHandler(button_handler))
