@@ -95,10 +95,7 @@ def init_db():
 def save_message(username, message_text, file_path=None):
     conn = psycopg2.connect(host=DB_HOST, database=DB_NAME, user=DB_USER, password=DB_PASSWORD)
     cursor = conn.cursor()
-    cursor.execute("""
-    INSERT INTO messages (username, message_text, file_path)
-    VALUES (%s, %s, %s, %s);
-    """, (username, message_text, file_path))
+    cursor.execute("INSERT INTO messages (username, message_text, file_path) VALUES (%s, %s, %s, %s);", (username, message_text, file_path))
     conn.commit()
     cursor.close()
     conn.close()
