@@ -199,8 +199,7 @@ async def rules_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Обработчик команды /rules
 async def mouse_of_day_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_photo("https://i.ibb.co/k6qtKzW/photo-1-2025-01-02-17-06-42.jpg")
-    await update.message.reply_photo("https://ibb.co/0C1jLb6")
+    await update.message.reply_photo(sample_mouse_of_day_response())
 
 # Обработчик текстовых сообщений
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -219,7 +218,7 @@ async def handle_file(update: Update, context: ContextTypes.DEFAULT_TYPE):
     file = update.message.document or update.message.photo[-1] or update.message.video
 
     caption = update.message.caption if update.message.caption else None
-    file_path = f"https://api.telegram.org/file/bot{TOKEN}/{file.file_path}"
+    file_path = f"https://api.telegram.org/file/bot{TOKEN}/{file.file_id}"
 
     await update.message.reply_text(sample_response())
 
