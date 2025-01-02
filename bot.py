@@ -199,7 +199,7 @@ async def rules_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 # Обработчик команды /rules
 async def mouse_of_day_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("[](https://i.ibb.co/k6qtKzW/photo-1-2025-01-02-17-06-42.jpg)", parse_mode='MarkdownV2')
+    await update.message.reply_text("[ㅤ](https://i.ibb.co/k6qtKzW/photo-1-2025-01-02-17-06-42.jpg)", parse_mode='MarkdownV2')
 
 # Обработчик текстовых сообщений
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
